@@ -137,11 +137,3 @@ To restore an application to its original state, reinstall or update it from the
 ### License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
-
----
-
-### Script reference
-
-For convenience, here is the script filename used in this repository:
-
-- `app-thinner.sh`
