@@ -89,14 +89,37 @@ The script will:
 
 - Verify it’s running on Apple Silicon (exits on Intel Macs).
 - Scan `/Applications` for Universal apps.
-- Present a list of candidates and ask for confirmation.
+- Present a list of candidates (with per-app size estimates) and ask for confirmation.
 - Prompt for an administrator password (via `sudo`) only when needed to modify binaries.
+
+#### Options
+
+| Flag | Description |
+| --- | --- |
+| `-n`, `--dry-run` | Scan and report only — show the eligible apps and the estimated reclaimable space, then exit without modifying anything. |
+| `--safe` | In addition to the default exclusions, skip security-sensitive and signature-fragile apps (password managers, MFA, VPNs, finance/crypto, endpoint-security agents) and dev/system toolchains (Xcode, Android Studio). |
+| `--resign` | After stripping, re-apply an ad-hoc code signature (`codesign --force --sign -`) so the modified binary keeps a valid (ad-hoc) signature. Note: an ad-hoc signature will not satisfy strict notarization checks. |
+| `-h`, `--help` | Show usage and exit. |
+
+Examples:
+
+```
+
+# Preview what would change, including estimated savings
+./app-thinner.sh --dry-run
+
+# Skip sensitive/dev apps, and re-sign the rest after stripping
+./app-thinner.sh --safe --resign
+
+```
+
+The default behavior (no flags) is unchanged: only `Safari.app` is excluded.
 
 ---
 
 ### Excluding apps
 
-By default, `Safari.app` is excluded as a safety precaution. To exclude more applications, edit the `EXCLUDED_APPS` array at the top of `app-thinner.sh`, for example:
+By default, `Safari.app` is excluded as a safety precaution. Use `--safe` to also skip a built-in list of security-sensitive and dev/system apps (see the `SAFE_EXCLUDED_APPS` and `SAFE_EXCLUDED_PATTERNS` arrays). To exclude more applications unconditionally, edit the `EXCLUDED_APPS` array at the top of `app-thinner.sh`, for example:
 
 ```
 
