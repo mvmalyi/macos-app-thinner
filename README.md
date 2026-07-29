@@ -73,15 +73,20 @@ chmod +x app-thinner.sh
 
 ```
 
+Move the file into /usr/local/bin:
+```
+sudo mv /path/to/your/app-thinner.sh /usr/local/bin/app-thinner
+```
+
 ---
 
 ### Usage
 
-Run the script:
+Run the command in your terminal:
 
 ```
 
-./app-thinner.sh
+app-thinner
 
 ```
 
